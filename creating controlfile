@@ -1,0 +1,139 @@
+
+
+
+
+SQL> select name from v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
+/u01/app/oracle/oradata/ORACLE/system01.dbf
+/u01/app/oracle/oradata/ORACLE/sysaux01.dbf
+/u01/app/oracle/oradata/ORACLE/undotbs01.dbf
+/u01/app/oracle/oradata/ORACLE/users01.dbf
+
+SQL>
+SQL>
+SQL> select name from v$controlfile;
+
+NAME
+--------------------------------------------------------------------------------
+/u01/app/oracle/oradata/ORACLE/control01.ctl
+/u01/app/oracle/fast_recovery_area/ORACLE/control02.ctl
+
+
+SQL> STARTUP NOMOUNT;
+ORACLE instance started.
+
+Total System Global Area  704643000 bytes
+Fixed Size                  8900536 bytes
+Variable Size             557842432 bytes
+Database Buffers          134217728 bytes
+Redo Buffers                3682304 bytes
+SQL>
+
+SQL> ALTER DATABASE BACKUP CONTROLFILE TO TRACE AS '/u01/app/oracle/diag/rdbms/oracle/ORACLE/trace/controlfile_trace.sql';
+
+Database altered.
+
+
+
+SQL> ALTER DATABASE BACKUP CONTROLFILE TO TRACE;
+
+Database altered.
+
+
+SQL> SHUTDOWN IMMEDIATE;
+ORA-01109: database not open
+
+
+Database dismounted.
+ORACLE instance shut down.
+SQL> SHUTDOWN ABORT;
+ORACLE instance shut down.
+SQL>
+SQL>
+SQL>
+SQL>
+SQL>
+SQL>
+SQL>
+SQL> STARTUP NOMOUNT;
+ORACLE instance started.
+
+Total System Global Area  704643000 bytes
+Fixed Size                  8900536 bytes
+Variable Size             557842432 bytes
+Database Buffers          134217728 bytes
+Redo Buffers                3682304 bytes
+
+
+
+
+
+
+SQL>
+
+
+CREATE CONTROLFILE REUSE DATABASE "ORACLE" RESETLOGS ARCHIVELOG
+    MAXLOGFILES 16
+    MAXLOGMEMBERS 3
+    MAXDATAFILES 100
+    MAXINSTANCES 1
+    MAXLOGHISTORY 226
+LOGFILE
+    GROUP 1 '/u01/app/oracle/oradata/ORACLE/redo01.log' SIZE 50M,
+    GROUP 2 '/u01/app/oracle/oradata/ORACLE/redo02.log' SIZE 50M
+SQL> SQL> SQL>   2    3    4    5    6    7    8    9   10  DATAFILE
+    '/u01/app/oracle/oradata/ORACLE/system01.dbf',
+    '/u01/app/oracle/oradata/ORACLE/sysaux01.dbf',
+    '/u01/app/oracle/oradata/ORACLE/undotbs01.dbf',
+    '/u01/app/oracle/oradata/ORACLE/users01.dbf';
+ 11   12   13   14
+Control file created.
+
+
+SQL> select name from v$controlfile;
+
+NAME
+--------------------------------------------------------------------------------
+/u01/app/oracle/oradata/ORACLE/control01.ctl
+/u01/app/oracle/fast_recovery_area/ORACLE/control02.ctl
+
+
+SQL> SELECT file_name, status FROM dba_data_files;
+
+FILE_NAME
+--------------------------------------------------------------------------------
+STATUS
+---------
+/u01/app/oracle/oradata/ORACLE/system01.dbf
+AVAILABLE
+
+/u01/app/oracle/oradata/ORACLE/sysaux01.dbf
+AVAILABLE
+
+/u01/app/oracle/oradata/ORACLE/users01.dbf
+AVAILABLE
+
+
+FILE_NAME
+--------------------------------------------------------------------------------
+STATUS
+---------
+/u01/app/oracle/oradata/ORACLE/undotbs01.dbf
+AVAILABLE
+
+CREATE CONTROLFILE REUSE DATABASE "ORACLE" RESETLOGS ARCHIVELOG
+    MAXLOGFILES 16
+    MAXLOGMEMBERS 3
+    MAXDATAFILES 100
+    MAXINSTANCES 1
+    MAXLOGHISTORY 226
+LOGFILE
+    GROUP 1 '/u01/app/oracle/oradata/ORACLE/redo01.log' SIZE 50M,
+    GROUP 2 '/u01/app/oracle/oradata/ORACLE/redo02.log' SIZE 50M
+DATAFILE
+    '/u01/app/oracle/oradata/ORACLE/system01.dbf',
+    '/u01/app/oracle/oradata/ORACLE/sysaux01.dbf',
+    '/u01/app/oracle/oradata/ORACLE/undotbs01.dbf',
+    '/u01/app/oracle/oradata/ORACLE/users01.dbf';
